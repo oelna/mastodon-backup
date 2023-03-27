@@ -1,2 +1,15 @@
-# mastodon-backup
-A simple PHP application that logs Mastodon posts to an SQLite database, using public RSS feeds
+# Mastodon Backup
+
+A simple PHP application that logs Mastodon posts to an SQLite database, using public RSS feeds.
+
+## Installation
+
+Save the files to a directory and do some configuration in `config.php` (only the users to backup, for now)
+If you're prepared to do some work, the PDO interface in `database.php` can probably be adapted to save to databases other than SQLite as well.
+
+## Usage
+
+Call `refresh.php` from your browser. If the output is blank, it probably worked.
+You can now call `index.php` and check how many posts ("toots") were saved to your database. (There should be a UI at some point in the future)
+
+Ideally, make sure that `refresh.php` is called regularly, eg. via a cron job.
