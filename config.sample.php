@@ -9,7 +9,6 @@ $config = [
 
 	'accounts' => [
 		'https://mas.to/@oelna',
-		'https://dice.camp/@Sophie',
 		'https://mastodon.social/@siracusa'
 	]
 ];
@@ -17,7 +16,7 @@ $config = [
 
 define('ROOT', __DIR__);
 define('DS', DIRECTORY_SEPARATOR);
-define('DB_FILE', ROOT.DS.'mastodon.db');
+define('DB_FILE', ROOT.DS.'mastodon.db'); // change this if you like
 
 require_once(ROOT.DS.'database.php');
 require_once(ROOT.DS.'functions.php');

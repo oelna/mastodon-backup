@@ -5,6 +5,7 @@ require_once(__DIR__.DIRECTORY_SEPARATOR.'config.php');
 $feed = [];
 
 foreach ($config['accounts'] as $account) {
+	if(empty($account)) continue;
 	$normalized = normalize_mastodon_user_url($account, 'array');
 
 	$url = 'https://'.$normalized['host'].'/@'.$normalized['user'].'.rss';
