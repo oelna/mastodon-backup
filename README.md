@@ -4,8 +4,9 @@ A simple PHP application that logs Mastodon posts to an SQLite database, using p
 
 ## Installation
 
-Save the files to a directory and do some configuration in `config.php` (only the users to backup, for now)
-If you're prepared to do some work, the PDO interface in `database.php` can probably be adapted to save to databases other than SQLite as well.
+- Save the files to a directory on your webserver
+- Rename [`config.sample.php`](config.sample.php) to `config.php` and do some configuration there (only the users to backup, for now)
+- If you're prepared to do some work, the PDO interface in `database.php` can probably be adapted to save to databases other than SQLite as well.
 
 Also take care to preserve the `.htaccess` file. It prevents the direct download of the database file in the browser.
 
