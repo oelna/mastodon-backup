@@ -1,5 +1,6 @@
 <?php
 
+if(!file_exists(__DIR__.DIRECTORY_SEPARATOR.'config.php')) die('Create a config.php according to <a href="README.md">README.md</a>');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'config.php');
 
 $feed = [];
