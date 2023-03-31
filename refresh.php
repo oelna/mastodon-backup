@@ -9,7 +9,8 @@ foreach ($config['accounts'] as $account) {
 	if(empty($account)) continue;
 	$normalized = normalize_mastodon_user_url($account, 'array');
 
-	$url = 'https://'.$normalized['host'].'/@'.$normalized['user'].'.rss';
+	// $url = 'https://'.$normalized['host'].'/@'.$normalized['user'].'.rss';
+	$url = 'https://'.$normalized['host'].'/@'.$normalized['user'].'/with_replies.rss';
 	$xml = simplexml_load_file($url);
 
 	if ($xml) {
@@ -22,6 +23,14 @@ foreach ($config['accounts'] as $account) {
 			$description = (string) $item->description;
 			$pubDate = (integer) strtotime($item->pubDate);
 
+			// detect replies (todo: should be improved)
+			$is_reply = 0;
+			$test = strip_tags($description);
+			if($test[0] == '@' && $test[1] != ' ') {
+				$is_reply = 1;
+			}
+
+			// handle media attachments
 			$media = null;
 			$ns_media = $item->children('http://search.yahoo.com/mrss/');
 
@@ -50,6 +59,7 @@ foreach ($config['accounts'] as $account) {
 				'link' => $link,
 				'description' => $description,
 				'pubdate' => $pubDate,
+				'is_reply' => $is_reply,
 				'media' => ($media !== null) ? json_encode($media) : null
 			];
 		}
@@ -60,7 +70,7 @@ foreach ($config['accounts'] as $account) {
 	}
 }
 
-$stmt = $db->prepare("INSERT OR IGNORE INTO posts (post_server, post_user, post_guid, post_link, post_description, post_media, post_pubdate) VALUES (:post_server, :post_user, :post_guid, :post_link, :post_description, :post_media, :post_pubdate)");
+$stmt = $db->prepare("INSERT OR IGNORE INTO posts (post_server, post_user, post_guid, post_link, post_description, post_media, post_pubdate, post_is_reply) VALUES (:post_server, :post_user, :post_guid, :post_link, :post_description, :post_media, :post_pubdate, :post_is_reply)");
 
 foreach($feed as $item) {
 	$stmt->bindValue(':post_server', $item['server'], PDO::PARAM_STR);
@@ -69,6 +79,7 @@ foreach($feed as $item) {
 	$stmt->bindValue(':post_link', $item['link'], PDO::PARAM_STR);
 	$stmt->bindValue(':post_description', $item['description'], PDO::PARAM_STR);
 	$stmt->bindValue(':post_pubdate', $item['pubdate'], PDO::PARAM_INT);
+	$stmt->bindValue(':post_is_reply', $item['is_reply'], PDO::PARAM_INT);
 
 	if($item['media'] !== null) {
 		$stmt->bindValue(':post_media', $item['media'], PDO::PARAM_STR);

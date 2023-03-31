@@ -43,14 +43,12 @@ if($config['db_version'] == 0) {
 }
 
 
-/*
 // note to myself on how to upgrade the database in the future :)
 // upgrade database to v2
 if($config['db_version'] == 1) {
 	try {
 		$db->exec("PRAGMA `user_version` = 2;
-			ALTER TABLE `posts` ADD `post_abc` INTEGER;
-			ALTER TABLE `posts` ADD `post_123` INTEGER;
+			ALTER TABLE `posts` ADD `post_is_reply` INTEGER DEFAULT 0;
 		");
 		$config['db_version'] = 2;
 	} catch(PDOException $e) {
@@ -58,4 +56,3 @@ if($config['db_version'] == 1) {
 		die('cannot upgrade database table to v2!');
 	}
 }
-*/
