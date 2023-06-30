@@ -1,0 +1,132 @@
+:root {
+	--accent-color: #007aff;
+	--dim-color: #aaa;
+	--divider-color: #ddd;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+html {
+	font: 100%/1.4 system-ui, sans-serif;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+ul {
+	list-style: none;
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	width: min(95%, 90ch);
+	margin-inline: auto;
+	margin-block: 2rem 12rem;
+}
+
+.container > * {
+	outline: 0px solid #f0f;
+}
+
+.container nav {
+	width: min(25%, 15rem);
+}
+
+.container main {
+	flex: 1;
+}
+
+.container footer {
+	flex-basis: 100%;
+	border-top: 1px solid var(--divider-color);
+	font-size: 0.85rem;
+	margin-block-start: 2rem;
+	padding-block-start: 0.5rem;
+	color: var(--dim-color);
+}
+
+nav details {
+	margin-block-start: 0.8rem;
+}
+
+nav details summary {
+	color: var(--dim-color);
+	font-size: 0.85rem;
+	padding: 0.4rem;
+}
+
+nav .months {
+	display: flex;
+	flex-direction: column;
+}
+
+nav .months li {
+	border-top: 1px solid var(--divider-color);
+}
+
+nav .months li a {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	padding: 0.4em;
+	color: currentColor;
+	text-decoration: none;
+	transition: all 0.25s;
+}
+
+nav .months li a:is(:hover, :focus) {
+	padding-inline-start: 0.6em;
+}
+
+nav .months li a .amount {
+	color: var(--dim-color);
+	font-size: 0.85rem;
+}
+
+nav .months li[aria-current="page"] {
+	color: var(--accent-color);
+}
+
+.posts > li {
+	padding-block: 1rem;
+}
+
+.posts > li + li {
+	border-top: 1px solid var(--divider-color);
+}
+
+.posts a {
+	color: var(--accent-color);
+	text-decoration: none;
+}
+
+.posts .time {
+	font-size: 0.85em;
+	display: inline-block;
+	color: var(--dim-color);
+	text-decoration: none;
+	margin-block-end: 0.25rem;
+}
+
+.posts .media {
+	margin-block-start: 0.5rem;
+}
+
+.posts .media li {
+	max-width: 80%;
+}
+
+@media (max-width: 40em) {
+	.container nav {
+		flex: 0 0 100%;
+	}
+}
