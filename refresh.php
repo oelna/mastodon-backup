@@ -26,7 +26,8 @@ foreach ($config['accounts'] as $account) {
 			// detect replies (todo: should be improved)
 			$is_reply = 0;
 			$test = strip_tags($description);
-			if($test[0] == '@' && $test[1] != ' ') {
+
+			if(mb_strlen($test) > 1 && ($test[0] == '@' && $test[1] != ' ')) {
 				$is_reply = 1;
 			}
 
